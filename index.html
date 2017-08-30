@@ -13,6 +13,9 @@
    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
    integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
    crossorigin=""></script>
+
+   <!-- Leaflet plugin with config for free tile providers -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.1.17/leaflet-providers.min.js" integrity="sha256-Szek6bbasIbX8zo6Q7mTIvVpeaHHG/9feYBsrUPNreM=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -20,10 +23,24 @@
 	<div id="mapid"></div>
 
    	<script>
+   		var palmToo = []; // TODO: ADD PALM TOO COORDINATES HERE
 		var mymap = L.map('mapid').setView([40.713, -74.006], 13);
+
 		// Add OpenStreetMap tile layer to map
 		// More at http://leaflet-extras.github.io/leaflet-providers/preview/
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mymap);
+		
+		// Add OpenStreetMap tile layer to map
+		// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mymap);
+
+		// Add National Geographic tile layer to map
+		L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+			maxZoom: 16
+		}).addTo(mymap);
+
+		// Add marker for Palm Too, one of the best steakhouses in New York City!
+		var myDataPoint = L.marker([40.7515, -73.9707]).addTo(mymap);
+			myDataPoint.bindPopup("This is The Palm Too steakhouse.");
 	</script>
 
 </body>
