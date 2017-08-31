@@ -24,8 +24,38 @@
 
    	<script>
    		var manhattan = [40.713, -74.006];
-   		var palmToo = [40.7515, -73.9707]; // TODO: ADD PALM TOO COORDINATES HERE
+   		var palmToo = [40.7515, -73.9707];
+		var myLat = 0;
+		var myLong = 0;
+   		var mySpot = [0, 0];
+
 		var mymap = L.map('mapid').setView(palmToo, 13);
+
+/*		var currentLocation = navigator.geolocation.getCurrentPosition(function(position) {
+			console.log(position);
+			console.log(position.coords);
+			console.log(position.coords.latitude);
+			console.log(position.coords.longitude);
+			var myLat = position.coords.latitude;
+			var myLong = position.coords.longitude;
+			console.log(myLat);
+			console.log(myLong);
+		});*/
+
+		function getLocation() {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				// var myLat = position.coords.latitude;
+				// var myLong = position.coords.longitude;
+				mySpot = [position.coords.latitude, position.coords.longitude];
+
+				var	myDataPoint2 = L.marker(mySpot).addTo(mymap);
+				myDataPoint2.bindPopup("This is your current location.");
+			});
+		}
+
+		/* navigator.geolocation.getCurrentPosition(function(position) {
+  do_something(position.coords.latitude, position.coords.longitude);
+}); */
 
 		// Add OpenStreetMap tile layer to map
 		// More at http://leaflet-extras.github.io/leaflet-providers/preview/
@@ -39,9 +69,17 @@
 			maxZoom: 16
 		}).addTo(mymap);
 
+		getLocation();
+
 		// Add marker for Palm Too, one of the best steakhouses in New York City!
 		var myDataPoint = L.marker(palmToo).addTo(mymap);
-			myDataPoint.bindPopup("This is The Palm Too steakhouse.");
+			myDataPoint.bindPopup("This is <strong>The Palm Too</strong> steakhouse.");
+		
+		/* THIS DOESN'T WORK HERE. VAR MYSPOT IS OUT OF SCOPE AND WOULDN'T BE UPDATED HERE. MOVING THIS CODE INTO getLocation() WORKS.
+		var myDataPoint2 = L.marker(mySpot).addTo(mymap);
+			myDataPoint2.bindPopup("This is your current location."); */	
+
+
 	</script>
 
 </body>
