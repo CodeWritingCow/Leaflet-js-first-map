@@ -23,8 +23,9 @@
 	<div id="mapid"></div>
 
    	<script>
-   		var palmToo = []; // TODO: ADD PALM TOO COORDINATES HERE
-		var mymap = L.map('mapid').setView([40.713, -74.006], 13);
+   		var manhattan = [40.713, -74.006];
+   		var palmToo = [40.7515, -73.9707]; // TODO: ADD PALM TOO COORDINATES HERE
+		var mymap = L.map('mapid').setView(palmToo, 13);
 
 		// Add OpenStreetMap tile layer to map
 		// More at http://leaflet-extras.github.io/leaflet-providers/preview/
@@ -39,7 +40,7 @@
 		}).addTo(mymap);
 
 		// Add marker for Palm Too, one of the best steakhouses in New York City!
-		var myDataPoint = L.marker([40.7515, -73.9707]).addTo(mymap);
+		var myDataPoint = L.marker(palmToo).addTo(mymap);
 			myDataPoint.bindPopup("This is The Palm Too steakhouse.");
 	</script>
 
