@@ -4,7 +4,8 @@ var myLat = 0;
 var myLong = 0;
 var mySpot = [myLat, myLong];
 
-var mymap = L.map('mapid').setView(palmToo, 13);
+var mymap = L.map('mapid');
+// var mymap = L.map('mapid').setView(palmToo, 13);
 
 
 function getLocation() {
@@ -15,15 +16,16 @@ function getLocation() {
 
 		var	myDataPoint2 = L.marker(mySpot).addTo(mymap);
 		myDataPoint2.bindPopup("This is your current location.");
+
+		mymap.setView(mySpot, 7); // Set map center
 	});
 }
 
 
 // Add OpenStreetMap tile layer to map
-// More at http://leaflet-extras.github.io/leaflet-providers/preview/
-
-// Add OpenStreetMap tile layer to map
 // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mymap);
+
+// More at http://leaflet-extras.github.io/leaflet-providers/preview/
 
 // Add National Geographic tile layer to map
 L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
