@@ -44,7 +44,15 @@ function onLocationFound(e) {
     L.circle(e.latlng, radius).addTo(mymap);
 }
 
+// If Leaflet fails to find user's geolocation, show error message.
+// Set map center to Palm Too coordinates.
+function onLocationError(e) {
+    alert(e.message);
+    mymap.setView(palmToo, 7);
+}
+
 mymap.on('locationfound', onLocationFound);
+mymap.on('locationerror', onLocationError);
 
 
 // getLocation();
