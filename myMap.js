@@ -7,7 +7,7 @@ var mySpot = [myLat, myLong];
 var mymap = L.map('mapid');
 // var mymap = L.map('mapid').setView(palmToo, 13);
 
-
+/* Find user's location via the geolocation API
 function getLocation() {
 	navigator.geolocation.getCurrentPosition(function(position) {
 		// var myLat = position.coords.latitude;
@@ -20,7 +20,7 @@ function getLocation() {
 		mymap.setView(mySpot, 7); // Set map center
 	});
 }
-
+*/
 
 // Add OpenStreetMap tile layer to map
 // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mymap);
@@ -33,7 +33,23 @@ L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Ma
 	maxZoom: 16
 }).addTo(mymap);
 
-getLocation();
+
+// Find user's location using Leaflet's locate method with the setView option
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+
+    L.marker(e.latlng).addTo(mymap)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(mymap);
+}
+
+mymap.on('locationfound', onLocationFound);
+
+
+// getLocation();
+mymap.locate({setView: true, maxZoom: 7});
+
 
 // Add marker for Palm Too, one of the best steakhouses in New York City!
 var myDataPoint = L.marker(palmToo).addTo(mymap);
